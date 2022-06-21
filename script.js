@@ -101,6 +101,8 @@ for (let i = 0; i < passwordLength; i++) {
 };
 console.log(passArray);
 
+var generateBtn = document.querySelector('#generate');
+
 function writePassword() {
   var password = generatePasswordLength();
   var passwordText = document.querySelector("#password");
