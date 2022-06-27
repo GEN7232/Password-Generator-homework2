@@ -21,21 +21,25 @@ function generatePasswordLength() {
     alert("Password length must be between 8 and 128 characters long");
     return generatePasswordLength();
   }
+  var possibleCharacters = [];
+
   console.log(passwordLength);
-  return passwordLength;
+  var setSpecial = confirm("Would you like to use speical characters?");
+  console.log(setSpecial);
+  if (setSpecial) {possibleCharacters = possibleCharacters.concat(specialCharacters)};
+  var setNumeric = confirm("Would you like to use numeric characters?");
+  console.log(setNumeric);
+  if (setNumeric) {possibleCharacters = possibleCharacters.concat(numeric)};
+  var setUpperCase = confirm("Would you like to use uppercase characters?")
+  console.log(setUpperCase);
+  if (setUpperCase) {possibleCharacters = possibleCharacters.concat(upperCase)};
+  var setLowerCase = confirm("Would you like to use lowercase characters?")
+  console.log(setLowerCase);
+  if (setLowerCase) {possibleCharacters = possibleCharacters.concat(lowerCase)};
+  return {passwordLength, possibleCharacters};
 };
 
-var setSpecial = confirm("Would you like to use speical characters?");
-console.log(setSpecial);
 
-var setNumeric = confirm("Would you like to use numeric characters?");
-console.log(setNumeric);
-
-var setUpperCase = confirm("Would you like to use uppercase characters?")
-console.log(setUpperCase);
-
-var setLowerCase = confirm("Would you like to use lowercase characters?")
-console.log(setLowerCase);
 
 // if (setLowerCase === false && setUpperCase === false && setNumeric === false && setSpecial === false) {
 //     alert("You must choose at least one option.");
@@ -59,22 +63,19 @@ console.log(setLowerCase);
 // console.log(possibilities);
 function buildPassword () {
   var passArray = [];
-  var possibleCharacters = lowerCase.concat(upperCase);
-  var passwordLength = generatePasswordLength()
-  for (let i = 0; i < passwordLength; i++) {
-  var index = Math.floor(Math.random()*possibleCharacters.length);
-  var digit = possibleCharacters[index]
+  var options = generatePasswordLength()
+  for (let i = 0; i < options.passwordLength; i++) {
+  var index = Math.floor(Math.random()*options.possibleCharacters.length);
+  var digit = options.possibleCharacters[index]
   passArray.push(digit);
 };
   return passArray.join("");
-}
-
-// var generateBtn = document.querySelector('#generate');
+};
 
 function writePassword() {
   var password = buildPassword();
   var passwordText = document.querySelector("#password");
   passwordText.value = password;
-}
+};
 
 generateBtn.addEventListener("click", writePassword);
